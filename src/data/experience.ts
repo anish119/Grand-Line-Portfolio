@@ -12,7 +12,7 @@ export const experienceContent: ExperienceContent = {
     {
       role: "Software Development Intern",
       company: "Sunrich Technologies Pvt. Ltd.",
-      period: "Internship",
+      period: "June 2024 – September 2024",
       description: [
         "Built full-stack web modules using Java technologies to manage user data and database operations.",
         "Developed dynamic forms with CRUD functionality and implemented search and filtering features for efficient record management.",
