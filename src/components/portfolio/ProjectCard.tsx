@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion } from "motion/react";
 
 import type { ProjectItem } from "@/types/portfolio";
 
@@ -8,33 +8,113 @@ interface ProjectCardProps {
   delay: number;
 }
 
-export function ProjectCard({ project, delay }: ProjectCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+// Preload all images for a project eagerly on mount
+function preloadImages(urls: string[]) {
+  urls.forEach((src) => {
+    const img = new Image();
+    img.src = src;
+  });
+}
 
+export function ProjectCard({ project, delay }: ProjectCardProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [displayIndex, setDisplayIndex] = useState(0);
+  const [isFading, setIsFading] = useState(false);
+
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const isVisibleRef = useRef(true);
+  const isMountedRef = useRef(true);
+
+  const images = project.images;
+  const hasMultiple = images.length > 1;
+
+  // Preload all images on mount
   useEffect(() => {
-    const checkTouchDevice = () => {
-      setIsTouchDevice(
-        "ontouchstart" in window ||
-          navigator.maxTouchPoints > 0
-      );
-    };
-    checkTouchDevice();
+    preloadImages(images);
+  }, [images]);
+
+  const clearTimers = useCallback(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
   }, []);
 
+  const advanceSlide = useCallback(() => {
+    if (!isMountedRef.current || !isVisibleRef.current) return;
+
+    // Start crossfade: fade out current
+    setIsFading(true);
+
+    // After half of the transition, swap the image (mid-fade)
+    timerRef.current = setTimeout(() => {
+      if (!isMountedRef.current) return;
+      setCurrentIndex((prev) => {
+        const next = (prev + 1) % images.length;
+        setDisplayIndex(next);
+        return next;
+      });
+      // Fade back in
+      setIsFading(false);
+    }, 300);
+  }, [images.length]);
+
+  const startSlideshow = useCallback(() => {
+    if (!hasMultiple) return;
+    clearTimers();
+
+    // Each card gets a random interval between 2500-3000ms
+    const baseInterval = 2500 + Math.random() * 500;
+
+    intervalRef.current = setInterval(() => {
+      if (isVisibleRef.current && isMountedRef.current) {
+        advanceSlide();
+      }
+    }, baseInterval);
+  }, [hasMultiple, advanceSlide, clearTimers]);
+
+  // Initialise slideshow with a randomised delay (200-800ms)
   useEffect(() => {
-    if (!isHovered || isTouchDevice || project.images.length <= 1) {
-      setCurrentImageIndex(0);
-      return;
-    }
+    if (!hasMultiple) return;
 
-    const timer = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
-    }, 1500);
+    const initDelay = 200 + Math.random() * 600;
+    timerRef.current = setTimeout(() => {
+      if (isMountedRef.current) {
+        startSlideshow();
+      }
+    }, initDelay);
 
-    return () => clearInterval(timer);
-  }, [isHovered, isTouchDevice, project.images.length]);
+    return () => {
+      isMountedRef.current = false;
+      clearTimers();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // intentionally run only once on mount
+
+  // Page Visibility API - pause when tab hidden, resume when visible
+  useEffect(() => {
+    if (!hasMultiple) return;
+
+    const handleVisibility = () => {
+      if (document.hidden) {
+        isVisibleRef.current = false;
+        clearTimers();
+      } else {
+        isVisibleRef.current = true;
+        startSlideshow();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [hasMultiple, startSlideshow, clearTimers]);
 
   return (
     <motion.a
@@ -46,24 +126,31 @@ export function ProjectCard({ project, delay }: ProjectCardProps) {
       viewport={{ once: true, margin: "-20%" }}
       transition={{ duration: 1, delay, ease: [0.16, 1, 0.3, 1] }}
       className="group cursor-pointer block"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-white/5 mb-8">
         <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-700 z-10" />
         <div className="w-full h-full transform group-hover:scale-105 transition-transform duration-1000 ease-out relative">
-          <AnimatePresence initial={false}>
-            <motion.img
-              key={currentImageIndex}
-              src={project.images[currentImageIndex]}
-              alt={project.title}
-              initial={{ opacity: 0, scale: 1.03 }}
-              animate={{ opacity: 1, scale: 1.00 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
-              className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity group-hover:mix-blend-normal"
-            />
-          </AnimatePresence>
+          {/* Base image layer - always visible underneath */}
+          <img
+            src={images[displayIndex]}
+            alt={project.title}
+            className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity group-hover:mix-blend-normal"
+          />
+
+          {/* Crossfade overlay - the current image fades in/out over the base */}
+          <img
+            key={currentIndex}
+            src={images[currentIndex]}
+            alt={project.title}
+            className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity group-hover:mix-blend-normal"
+            style={{
+              opacity: isFading ? 0 : 1,
+              transform: isFading ? "scale(1.03)" : "scale(1.00)",
+              transition: isFading
+                ? "opacity 300ms ease-in-out, transform 300ms ease-in-out"
+                : "opacity 600ms ease-in-out, transform 600ms ease-in-out",
+            }}
+          />
         </div>
       </div>
 
@@ -78,7 +165,7 @@ export function ProjectCard({ project, delay }: ProjectCardProps) {
           <ul className="space-y-2 list-none">
             {project.description.map((point) => (
               <li key={point} className="flex items-start gap-2.5 text-base font-['Inter'] text-white/50 font-light leading-relaxed">
-                <span className="text-orange-400/50 mt-[0.35em] shrink-0 text-xs">▸</span>
+                <span className="text-orange-400/50 mt-[0.35em] shrink-0 text-xs">&#9658;</span>
                 <span>{point}</span>
               </li>
             ))}
