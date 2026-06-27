@@ -30,7 +30,7 @@ export default function AppContent() {
   const laughTaleIndex = sectionOrder.indexOf("laugh-tale");
 
   return (
-    <div className="bg-black text-white selection:bg-sky-500/30 selection:text-sky-200">
+    <div className="bg-black text-white selection:bg-sky-500/30 selection:text-sky-200 overflow-x-hidden">
       <BottomNav activeIndex={activeIndex} onNavigate={scrollToSection} />
 
       <main>

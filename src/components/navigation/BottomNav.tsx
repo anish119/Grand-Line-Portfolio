@@ -15,12 +15,12 @@ export function BottomNav({ activeIndex, onNavigate }: BottomNavProps) {
 
   return (
     <motion.div
-      className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] w-[95%] max-w-5xl"
+      className="fixed bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-[100] w-[95vw] max-w-5xl"
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="bg-black/40 backdrop-blur-2xl border border-white/10 rounded-3xl p-4 md:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.4)] flex flex-col gap-4">
+      <div className="bg-black/40 backdrop-blur-2xl border border-white/10 rounded-3xl p-3 md:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.4)] flex flex-col gap-3 md:gap-4">
         <div className="flex items-center justify-between px-2">
           <div className="flex items-center gap-3 text-white/90">
             <Compass size={18} className="text-sky-400" />
@@ -55,7 +55,7 @@ export function BottomNav({ activeIndex, onNavigate }: BottomNavProps) {
                 onClick={() => onNavigate(realIndex)}
               >
                 <motion.div
-                  className={`w-3 h-3 md:w-4 md:h-4 rounded-full border-2 transition-all duration-500 flex items-center justify-center ${
+                  className={`w-2.5 h-2.5 md:w-4 md:h-4 rounded-full border-2 transition-all duration-500 flex items-center justify-center ${
                     isCurrent
                       ? "bg-sky-400 border-sky-400 scale-125 shadow-[0_0_15px_rgba(56,189,248,0.8)]"
                       : isCompleted
@@ -65,7 +65,7 @@ export function BottomNav({ activeIndex, onNavigate }: BottomNavProps) {
                 />
 
                 <span
-                  className={`absolute top-8 text-[10px] md:text-xs font-['Inter'] tracking-wider whitespace-nowrap transition-all duration-500 ${
+                  className={`absolute top-6 md:top-8 text-[8px] md:text-xs font-['Inter'] tracking-wider whitespace-nowrap transition-all duration-500 ${
                     isCurrent ? "text-sky-300 font-medium" : isCompleted ? "text-white/80" : "text-white/30"
                   }`}
                 >

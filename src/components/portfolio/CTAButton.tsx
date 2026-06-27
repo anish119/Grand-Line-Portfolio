@@ -7,7 +7,7 @@ interface CTAButtonProps {
 
 export function CTAButton({ cta, onClick }: CTAButtonProps) {
   const baseClassName =
-    "px-8 py-4 rounded-full font-['Inter'] text-sm uppercase tracking-widest font-medium transition-colors";
+    "w-full sm:w-auto px-8 py-4 rounded-full font-['Inter'] text-sm uppercase tracking-widest font-medium transition-colors flex items-center justify-center";
   const variantClassName =
     cta.variant === "primary"
       ? "bg-white text-black hover:bg-sky-50"

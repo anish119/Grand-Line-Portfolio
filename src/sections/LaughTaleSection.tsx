@@ -27,7 +27,7 @@ const placeholderValues = new Set([
 
 export function LaughTaleSection() {
   return (
-    <SectionShell className="py-32 flex items-center bg-black">
+    <SectionShell className="py-20 md:py-32 flex items-center bg-black">
       <SectionBackground
         imageUrl={contactContent.backgroundImage}
         imageClassName="absolute inset-0 z-0 bg-cover bg-center opacity-60 mix-blend-luminosity"
@@ -48,12 +48,12 @@ export function LaughTaleSection() {
             labelClassName="font-['Inter'] text-emerald-400 tracking-[0.2em] text-xs uppercase font-medium"
             lineClassName="bg-emerald-400"
             lineWidthClassName="w-8"
-            headingClassName="text-5xl md:text-7xl font-['Playfair_Display'] text-white leading-tight mb-8"
+            headingClassName="text-4xl md:text-7xl font-['Playfair_Display'] text-white leading-tight mb-8"
             emphasisClassName="italic text-emerald-200"
             title={contactContent.title}
           />
 
-          <p className="text-lg md:text-xl font-['Inter'] text-white/70 font-light leading-relaxed max-w-2xl mx-auto">
+          <p className="text-base md:text-xl font-['Inter'] text-white/70 font-light leading-relaxed max-w-2xl mx-auto">
             {contactContent.description}
           </p>
         </motion.div>
@@ -64,10 +64,10 @@ export function LaughTaleSection() {
           viewport={{ once: true, margin: "-20%" }}
           transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
-          <GlassCard className="bg-white/5 backdrop-blur-2xl border border-white/10 p-8 md:p-12 rounded-3xl text-left w-fit mx-auto">
+          <GlassCard className="bg-white/5 backdrop-blur-2xl border border-white/10 p-6 md:p-12 rounded-3xl text-left w-full mx-auto">
             <div
               className="grid gap-4 md:gap-5 items-stretch"
-              style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))' }}
+              style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))' }}
             >
               {contactContent.actions.map((action) => {
                 const Icon = actionIcons[action.icon];

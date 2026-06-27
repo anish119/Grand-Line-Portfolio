@@ -9,7 +9,7 @@ import { projectsContent } from "@/data/projects";
 
 export function Water7Section() {
   return (
-    <SectionShell className="py-32 flex flex-col justify-center bg-[#050b14]">
+    <SectionShell className="py-20 md:py-32 flex flex-col justify-center bg-[#050b14]">
       <SectionBackground
         imageUrl={projectsContent.backgroundImage}
         imageClassName="absolute inset-0 z-0 bg-cover bg-center opacity-30 mix-blend-screen"
@@ -27,7 +27,7 @@ export function Water7Section() {
             label={projectsContent.label}
             labelClassName="font-['Inter'] text-orange-400 tracking-[0.2em] text-xs uppercase font-medium"
             lineClassName="bg-orange-400"
-            headingClassName="text-5xl md:text-7xl font-['Playfair_Display'] text-white leading-tight"
+            headingClassName="text-4xl md:text-7xl font-['Playfair_Display'] text-white leading-tight"
             emphasisClassName="italic text-orange-200"
             title={projectsContent.title}
           />

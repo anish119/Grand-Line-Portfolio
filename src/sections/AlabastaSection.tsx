@@ -9,7 +9,7 @@ import { experienceContent } from "@/data/experience";
 
 export function AlabastaSection() {
   return (
-    <SectionShell className="py-32 flex items-center bg-[#0a0500]">
+    <SectionShell className="py-20 md:py-32 flex items-center bg-[#0a0500]">
       <SectionBackground
         imageUrl={experienceContent.backgroundImage}
         imageClassName="absolute inset-0 z-0 bg-cover bg-center opacity-40 mix-blend-screen"
@@ -31,13 +31,13 @@ export function AlabastaSection() {
             label={experienceContent.label}
             labelClassName="font-['Inter'] text-amber-500 tracking-[0.2em] text-xs uppercase font-medium"
             lineClassName="bg-amber-500"
-            headingClassName="text-5xl md:text-7xl font-['Playfair_Display'] text-white leading-tight"
+            headingClassName="text-4xl md:text-7xl font-['Playfair_Display'] text-white leading-tight"
             emphasisClassName="italic text-amber-200"
             title={experienceContent.title}
           />
         </motion.div>
 
-        <div className="space-y-12 md:space-y-24 border-l border-white/10 pl-8 md:pl-16 relative">
+        <div className="space-y-12 md:space-y-24 border-l border-white/10 pl-6 md:pl-16 relative">
           {experienceContent.items.map((experience, index) => (
             <TimelineItem key={`${experience.role}-${experience.company}`} experience={experience} delay={index * 0.2} />
           ))}

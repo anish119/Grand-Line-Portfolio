@@ -16,7 +16,7 @@ const featureIcons: Record<SpecializationFeature["icon"], typeof Cpu> = {
 
 export function EggheadSection() {
   return (
-    <SectionShell className="py-32 flex items-center bg-[#020813]">
+    <SectionShell className="py-20 md:py-32 flex items-center bg-[#020813]">
       <SectionBackground
         imageUrl={specializationContent.backgroundImage}
         imageClassName="absolute inset-0 z-0 bg-cover bg-center opacity-40 mix-blend-screen"
@@ -38,12 +38,12 @@ export function EggheadSection() {
             label={specializationContent.label}
             labelClassName="font-['Inter'] text-cyan-400 tracking-[0.2em] text-xs uppercase font-medium"
             lineClassName="bg-cyan-400"
-            headingClassName="text-5xl md:text-7xl font-['Inter'] font-light tracking-tighter text-white leading-tight mb-8"
+            headingClassName="text-4xl md:text-7xl font-['Inter'] font-light tracking-tighter text-white leading-tight mb-8"
             emphasisClassName="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-500"
             title={specializationContent.title}
           />
 
-          <p className="text-lg font-['Inter'] text-cyan-50/60 font-light leading-relaxed mb-12">
+          <p className="text-base md:text-lg font-['Inter'] text-cyan-50/60 font-light leading-relaxed mb-12">
             {specializationContent.description}
           </p>
 
@@ -72,7 +72,7 @@ export function EggheadSection() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-20%" }}
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-          className="md:w-1/2 w-full aspect-square relative flex items-center justify-center"
+          className="md:w-1/2 w-full aspect-square relative flex items-center justify-center max-h-64 md:max-h-none"
         >
           <div className="absolute w-64 h-64 bg-cyan-500/20 rounded-full blur-[100px]" />
           <div className="absolute w-48 h-48 bg-blue-500/30 rounded-full blur-[60px] animate-pulse" />

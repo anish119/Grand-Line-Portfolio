@@ -9,7 +9,7 @@ import { skillsContent } from "@/data/skills";
 
 export function ReverseMountainSection() {
   return (
-    <SectionShell className="py-32 flex items-center bg-black">
+    <SectionShell className="py-20 md:py-32 flex items-center bg-black">
       <SectionBackground
         imageUrl={skillsContent.backgroundImage}
         imageClassName="absolute inset-0 z-0 bg-cover bg-center opacity-30 mix-blend-screen"
@@ -28,12 +28,12 @@ export function ReverseMountainSection() {
             label={skillsContent.label}
             labelClassName="font-['Inter'] text-slate-400 tracking-[0.2em] text-xs uppercase font-medium"
             lineClassName="bg-slate-400"
-            headingClassName="text-5xl md:text-7xl font-['Playfair_Display'] text-white leading-tight mb-8"
+            headingClassName="text-4xl md:text-7xl font-['Playfair_Display'] text-white leading-tight mb-8"
             emphasisClassName="italic text-slate-300"
             title={skillsContent.title}
           />
 
-          <p className="text-lg font-['Inter'] text-white/60 font-light leading-relaxed">{skillsContent.description}</p>
+          <p className="text-base md:text-lg font-['Inter'] text-white/60 font-light leading-relaxed">{skillsContent.description}</p>
         </motion.div>
 
         <div className="md:w-2/3 flex flex-wrap items-start justify-center md:justify-start gap-x-8 gap-y-10 w-full">

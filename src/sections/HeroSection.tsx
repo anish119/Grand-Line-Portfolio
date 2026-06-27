@@ -27,7 +27,7 @@ export function HeroSection({ onScrollToEastBlue, onScrollToLaughTale }: HeroSec
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.6)_100%)] z-10" />
 
       <motion.div
-        className="relative z-20 flex flex-col items-center justify-center text-center px-6 mt-[-10vh]"
+        className="relative z-20 flex flex-col items-center justify-center text-center px-4 md:px-6 mt-[-5vh] md:mt-[-10vh] w-full"
         style={{ y: y2, opacity }}
       >
         <motion.div
@@ -48,7 +48,8 @@ export function HeroSection({ onScrollToEastBlue, onScrollToLaughTale }: HeroSec
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-7xl md:text-9xl font-['Inter'] font-bold tracking-tighter text-white drop-shadow-2xl"
+          className="font-['Inter'] font-bold tracking-tighter text-white drop-shadow-2xl"
+          style={{ fontSize: 'clamp(2.75rem, 14vw, 9rem)' }}
         >
           {heroContent.name}
         </motion.h1>
@@ -57,7 +58,7 @@ export function HeroSection({ onScrollToEastBlue, onScrollToLaughTale }: HeroSec
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5, delay: 0.6 }}
-          className="mt-8 text-lg md:text-xl font-['Inter'] text-white/60 max-w-xl font-light tracking-wide leading-relaxed"
+          className="mt-6 md:mt-8 text-base md:text-xl font-['Inter'] text-white/60 max-w-sm md:max-w-xl font-light tracking-wide leading-relaxed"
         >
           {heroContent.description}
         </motion.p>
@@ -66,7 +67,7 @@ export function HeroSection({ onScrollToEastBlue, onScrollToLaughTale }: HeroSec
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="mt-12 flex items-center gap-6"
+          className="mt-8 md:mt-12 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-6 w-full max-w-xs sm:max-w-none sm:w-auto"
         >
           {heroContent.ctas.map((cta) => (
             <CTAButton

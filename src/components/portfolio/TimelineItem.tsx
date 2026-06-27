@@ -16,10 +16,10 @@ export function TimelineItem({ experience, delay }: TimelineItemProps) {
       transition={{ duration: 1, delay, ease: [0.16, 1, 0.3, 1] }}
       className="relative group"
     >
-      <div className="absolute -left-[33px] md:-left-[65px] top-2 w-4 h-4 rounded-full bg-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.6)] group-hover:scale-150 transition-transform duration-500" />
+      <div className="absolute -left-[25px] md:-left-[65px] top-2 w-4 h-4 rounded-full bg-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.6)] group-hover:scale-150 transition-transform duration-500" />
 
       <div className="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-12 mb-6">
-        <h3 className="text-2xl md:text-4xl font-['Inter'] font-medium tracking-tight text-white group-hover:text-amber-200 transition-colors duration-500">
+        <h3 className="text-xl md:text-4xl font-['Inter'] font-medium tracking-tight text-white group-hover:text-amber-200 transition-colors duration-500">
           {experience.role}
         </h3>
         <span className="font-['Inter'] text-xs tracking-widest text-amber-500/80 uppercase whitespace-nowrap">
@@ -31,7 +31,7 @@ export function TimelineItem({ experience, delay }: TimelineItemProps) {
 
       <ul className="space-y-2 list-none">
         {experience.description.map((point) => (
-          <li key={point} className="flex items-start gap-2.5 text-lg font-['Inter'] text-white/50 font-light leading-relaxed max-w-3xl">
+          <li key={point} className="flex items-start gap-2.5 text-base font-['Inter'] text-white/50 font-light leading-relaxed max-w-3xl">
             <span className="text-amber-500/50 mt-[0.35em] shrink-0 text-xs">▸</span>
             <span>{point}</span>
           </li>

@@ -11,7 +11,7 @@ export function SectionContent({
   maxWidthClassName = "max-w-7xl",
 }: SectionContentProps) {
   return (
-    <div className={`relative z-20 mx-auto w-full px-6 md:px-12 ${maxWidthClassName} ${className}`.trim()}>
+    <div className={`relative z-20 mx-auto w-full px-4 md:px-12 ${maxWidthClassName} ${className}`.trim()}>
       {children}
     </div>
   );
